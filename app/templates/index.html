@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Grapevine Analytics</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="./static/css2/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<body>
+  <nav style="background-color: #5e72e4" class="lighten-1"  role="navigation" style="height: 83px">
+    <div class="nav-wrapper container">
+      <a id="logo-container" class="brand-logo center"><h5>Telecom Churning Analyser</h5></a>
+    </div>
+  </nav>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <div class="row center">
+<!--        <h5 class="header col s12 light">Telecom Churning Analyser</h5>-->
+      </div>
+
+      <div class="row">
+        <form action='/results' method="post" class="col s12" enctype="multipart/form-data">
+          <div class="row">
+            <div class="input-field col s3">
+            </div>
+            <div class="input-field col s5" style="margin-left: 20px">
+              <div class = "row">
+                  <label for="first_name"><b>Upload CSV</b></label><br>
+                  <div class = "file-field input-field">
+                    <div class = "btn" style="background-color: #5e72e4">
+                      <span>Browse</span>
+                      <input type = "file" name="file_upload" id="file_upload" />
+                    </div>
+                    <div class = "file-path-wrapper">
+                      <input class = "file-path validate" type = "text" placeholder = "Upload file" name="file_name" id="file_name" />
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row center">
+            <button type="submit" class="btn-large waves-effect waves-light" style="background-color: #5e72e4">Analyse Data</button>
+          </div>
+        </form>
+      </div>
+      <br><br>
+    </div>
+  </div>
+
+  </div>
+  </div>
+
+  <footer class="page-footer" style="background-color: #5e72e4">
+    <div class="container" style="height: 120px">
+      <div class="row">
+        <div class="col 12 s6">
+          <h5 class="white-text">Info</h5>
+          <p class="grey-text text-lighten-4">We are a team of Data Science students working on this project. Check our project and  recommend improvements which are greatly appreciated.</p>
+        </div>
+        <div class="col 12 s6">
+          <h5 class="white-text">Developers</h5>
+          <ul>
+            <li><a class="white-text">Piyush Ingale</a></li>
+            <li><a class="white-text">Himanshu Sharma</a></li>
+            <li><a class="white-text">Ipsita Shee</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3">Grapvine Analytics</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src=".js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script type="text/javascript">
+    document.getElementById('file_upload').onchange = function () {
+      document.getElementById('file_name').value = this.value.slice(12,100);
+    };
+  </script>
+
+  </body>
+</html>
+

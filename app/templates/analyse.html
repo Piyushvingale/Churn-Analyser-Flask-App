@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Grapevine Analytics</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="./static/css2/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="./static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="./static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <!-- Page plugins -->
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="./static/assets/css/argon.css?v=1.2.0" type="text/css">
+
+  
+</head>
+
+<body>
+<!--  <nav class="orange lighten-1" role="navigation" style="height: 83px">
+    <div class="nav-wrapper container">
+      <h1 class="h1 text-white d-inline-block mb-0">Telecom Churning Analyser</h1>
+    </div>
+  </nav>
+-->
+    <div class="header bg-primary pb-1">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="py-4" style="text-align:center;">
+            <h1 class="h1 text-white d-inline-block mb-0">Telecom Churning Analyser</h1>
+          </div>
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Customers</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ tot_cust }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="ni ni-active-40"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">High Value Customers</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ hvc }} %</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="ni ni-chart-pie-35"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Avg Rev High Value Cust</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ hvc_rev }} Rs</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="ni ni-money-coins"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Avg Net Rech HVC</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ hvc_rech }} Rs</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="ni ni-chart-bar-32"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Statistics</h3>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              
+              <div class="col-xl-4">
+              
+                <div class="card ">
+                  <div class="card-header ">
+                    <h5 class="card-title">HVC Churn</h5>
+                    <p class="card-category">Performance</p>
+                  </div>
+                  <div class="card-body ">
+                    <canvas id="chartEmail" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-4">
+              
+                <div class="card ">
+                  <div class="card-header ">
+                    <h5 class="card-title">Average Revenue</h5>
+                    <p class="card-category">Performance</p>
+                  </div>
+                  <div class="card-body ">
+                    <canvas id="lineChart1" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-xl-4">
+              
+                <div class="card ">
+                  <div class="card-header ">
+                    <h5 class="card-title">Average 3G Recharge</h5>
+                    <p class="card-category">Performance</p>
+                  </div>
+                  <div class="card-body ">
+                    <canvas id="lineChart2" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-4">
+              
+                <div class="card ">
+                  <div class="card-header ">
+                    <h5 class="card-title">Revenue (Churn Vs Non Churn)</h5>
+                    <p class="card-category">Performance</p>
+                  </div>
+                  <div class="card-body ">
+                    <canvas id="chartHori" width="400" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="card" style="margin-left: 30px; width: 550px">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0">Business Recommendations</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <!-- Projects table -->
+                    <table class="table align-items-center table-flush">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Index</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td> Map customer retention strategies costs with the expected ROI to effectively prioritize investments. </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td> Pricing promotions abound to entice customers to flee from one carrier to a competitor. </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td> Lack of connection capabilities may make a customer go with a carrier with wider network coverage. </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td> Slow or no response to customer complaints makes a customer more likely to switch operator. </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">5</th>
+                          <td> Listen to your customers. </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+
+          </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Churning High Value Customer</h3>
+                </div>
+                <div class="col text-right">
+                  <a href="#!" class="btn btn-sm btn-primary">Export</a>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Mobile No</th>
+                    <th scope="col">Good Phase Revenue</th>
+                    <th scope="col">Action Phase Revenue</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in range(result_df.shape[0]): %}
+                  <tr>
+                    <th scope="row">{{ result_df.iloc[i]['Mobile No'] }}</th>
+                    <td>{{ result_df.iloc[i]['avg_rech'] }} Rs</td>
+                    <td>{{ result_df.iloc[i]['avg_8'] }} Rs</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <div class="row center">
+<!--        <h5 class="header col s12 light">Telecom Churning Analyser</h5>-->
+      </div>
+
+<!--      <br>{{initial_table}}<br>
+  -->  </div>
+  </div>
+
+  </div>
+  </div>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src=".js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+  <script type="text/javascript" src="./static/js/chart.js"></script>
+
+<script type="text/javascript">
+      var ctx = document.getElementById('chartEmail').getContext('2d');
+      myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Total', 'Churn'],
+        datasets: [{
+          backgroundColor: [
+            '#4acccd',
+            '#fcc468',
+          ],
+          borderWidth: 0,
+          data: [ {{ tot_cust - tot_churn }}, {{ tot_churn }} ],
+        }]
+      },
+    });
+
+      var ctx = document.getElementById('lineChart1').getContext('2d');
+    myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Avg Rev', 'HVC Avg Rev'],
+        datasets: [{
+          label: "Emails",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          backgroundColor: [
+            '#ef8157',
+          ],
+          borderWidth: 0,
+          data: [{{ avg_rev }},{{ hvc_rev }}]
+        }]
+      },
+
+      options: {
+
+        legend: {
+          display: false
+        },
+
+        pieceLabel: {
+          render: 'percentage',
+          fontColor: ['white'],
+          precision: 2
+        },
+
+        tooltips: {
+          enabled: false
+        },
+
+        scales: {
+          yAxes: [{
+
+            ticks: {
+              display: true
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "transparent",
+              color: 'rgba(255,255,255,0.05)'
+            }
+
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent"
+            },
+            ticks: {
+              display: true,
+            }
+          }]
+        },
+      }
+    });
+      
+      var ctx = document.getElementById('lineChart2').getContext('2d');
+      myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Avg 3G', 'HVC 3G'],
+          datasets: [{
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [{{ avg_rech }},{{ hvc_rech }}],
+              backgroundColor: [
+                '#fcc468',
+              ],
+          }]
+      },
+      options: {
+
+        legend: {
+          display: false
+        },
+
+        pieceLabel: {
+          render: 'percentage',
+          fontColor: ['white'],
+          precision: 2
+        },
+
+        tooltips: {
+          enabled: false
+        },
+
+        scales: {
+          yAxes: [{
+
+            ticks: {
+              display: true
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "transparent",
+              color: 'rgba(255,255,255,0.05)'
+            }
+
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent"
+            },
+            ticks: {
+              display: true,
+            }
+          }]
+        },
+      }
+    });
+
+      var ctx = document.getElementById('chartHori').getContext('2d');
+      smyChart = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: {
+        labels: ['Good Phase', 'Action Phase'],
+          datasets: [{
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [ {{ arpu_gpc }} , {{ arpu_apc }} ],
+              backgroundColor: [
+                '#4acccd',
+                '#4acccd'
+              ],
+          },
+          {
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              data: [ {{ arpu_gpnc }} , {{ arpu_apnc }} ],
+              backgroundColor: [
+                '#fcc468',
+                '#fcc468',
+              ],
+          }]
+      },
+      options: {
+
+        legend: {
+          display: false
+        },
+
+        pieceLabel: {
+          render: 'percentage',
+          fontColor: ['white'],
+          precision: 2
+        },
+
+        tooltips: {
+          enabled: false
+        },
+
+        scales: {
+          yAxes: [{
+
+            ticks: {
+              display: true
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "transparent",
+              color: 'rgba(255,255,255,0.05)'
+            }
+
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent"
+            },
+            ticks: {
+              display: true,
+            }
+          }]
+        },
+      }
+    });
+
+</script>
+
+
+  </body>
+</html>
+
